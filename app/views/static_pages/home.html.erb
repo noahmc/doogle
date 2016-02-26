@@ -1,0 +1,10 @@
+<%= form_for(@entry, remote: true ) do |f| %>
+  <%= f.label :word %>
+  <%= f.text_field :word %>
+
+  <%= f.submit "Doogle Search" %>
+<% end %>
+
+<p id="error_message"></p>
+
+<p id="content"></p>
