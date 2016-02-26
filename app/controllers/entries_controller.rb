@@ -2,10 +2,10 @@ require 'net/http'
 
 class EntriesController < ApplicationController
   def create
-    url = URI.parse(api_url("test"))
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
+    url = URI.parse(api_url "test" )
+    req = Net::HTTP::Get.new url.to_s
+    res = Net::HTTP.start(url.host, url.port) { |http|
+      http.request req
     }
 
     @content = res.body
