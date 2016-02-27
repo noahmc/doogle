@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+entry_one:
+  word: "test"
+  created_at: <%= 10.minutes.ago %>
+  origin: "1944"
+  function: "verb"
+  pronunciation: "te-st"
+
+entry_two:
+  word: "other"
+  created_at: <%= 20.minutes.ago %>
+  origin: "1891"
+  function: "noun"
+  pronunciation: "uh-thur"

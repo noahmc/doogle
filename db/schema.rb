@@ -15,21 +15,15 @@ ActiveRecord::Schema.define(version: 20160225195642) do
 
   create_table "definitions", force: :cascade do |t|
     t.text     "description"
+    t.integer  "entry_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "definitions", ["entry_id"], name: "index_definitions_on_entry_id"
+
   create_table "entries", force: :cascade do |t|
     t.string   "word"
-    t.string   "pronunciation"
-    t.string   "function"
-    t.string   "origin"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "words", force: :cascade do |t|
-    t.string   "name"
     t.string   "pronunciation"
     t.string   "function"
     t.string   "origin"

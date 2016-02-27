@@ -1,5 +1,9 @@
-$("#error_message").html("<%= @error_message %>");
+$("#error_message").text("<%= @error_message %>");
 
-<% if false %>
-  $("#content").text("<%= @content %>");
+var content = $("#content");
+
+content.empty();
+
+<% @definitions.each do |definition| %>
+  content.append("<li><%= definition %></li>");
 <% end %>
