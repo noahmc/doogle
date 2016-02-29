@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '4.2.5.1'
-gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -13,14 +12,12 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'capybara'
 gem 'rails_admin'
+gem 'devise'
 
 gem 'heroku_san'
 gem 'nokogiri'
-gem 'pg'
-gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -30,16 +27,22 @@ gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'sdoc', '~> 0.4.0', group: :doc
+
+group :test do
+  gem 'webmock'
+  gem 'selenium-webdriver'
+end
 
 group :development, :test do
-  gem 'byebug'
+  gem 'sqlite3'
+  gem 'byebug',      '3.4.0'
+  gem 'web-console', '2.0.0.beta3'
+  gem 'spring',      '1.1.3'
+  gem "rspec-rails"
 end
 
-group :development do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
+group :production do
+  gem 'pg'
+  gem 'rails_12factor', '0.0.2'
 end
-
-gem "rspec-rails", :group => [:development, :test]
-gem 'webmock', group: :test
-gem 'selenium-webdriver', group: :test

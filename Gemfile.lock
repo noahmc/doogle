@@ -38,10 +38,14 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.3)
-    binding_of_caller (0.7.2)
+    bcrypt (3.1.10)
+    binding_of_caller (0.7.3.pre1)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    byebug (8.2.2)
+    byebug (3.4.0)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -57,10 +61,19 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    columnize (0.9.0)
     concurrent-ruby (1.0.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
+    devise (3.5.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     excon (0.45.4)
@@ -105,6 +118,7 @@ GEM
     nested_form (0.3.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    orm_adapter (0.5.0)
     pg (0.18.4)
     rack (1.6.4)
     rack-pjax (0.8.0)
@@ -131,7 +145,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_12factor (0.0.3)
+    rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
     rails_admin (0.7.0)
@@ -159,6 +173,8 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     remotipart (1.2.1)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rspec-core (3.4.2)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -193,7 +209,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    spring (1.6.3)
+    slop (3.6.0)
+    spring (1.1.3)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -212,10 +229,12 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
+    warden (1.2.3)
+      rack (>= 1.0)
+    web-console (2.0.0.beta3)
+      activemodel (~> 4.0)
+      binding_of_caller (= 0.7.3.pre1)
+      railties (~> 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     webmock (1.22.3)
       addressable (>= 2.3.6)
@@ -229,26 +248,27 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  byebug (= 3.4.0)
   capybara
   coffee-rails (~> 4.1.0)
+  devise
   heroku_san
   jbuilder (~> 2.0)
   jquery-rails
   nokogiri
   pg
   rails (= 4.2.5.1)
-  rails_12factor
+  rails_12factor (= 0.0.2)
   rails_admin
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
-  spring
+  spring (= 1.1.3)
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
-  web-console (~> 2.0)
+  web-console (= 2.0.0.beta3)
   webmock
 
 BUNDLED WITH
