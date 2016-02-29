@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Entry, type: :model do
   fixtures :entries
+  fixtures :definitions
 
   it 'should require a word' do
     entry = Entry.new(word: 'test')

@@ -3,7 +3,7 @@ require 'net/http'
 class EntriesController < ApplicationController
   def create
     word = word_params[:word]
-    entry = Entry.find_by('word', word)
+    entry = Entry.find_by(word: word)
 
     if entry
       @definitions = entry.definitions.map { |definition| definition.description }
@@ -26,7 +26,7 @@ class EntriesController < ApplicationController
 
         if entry.save
           definitions.each do |definition|
-            entry.definitions.new(description: definition)
+             entry.definitions.new(description: definition).save
           end
         end
       end

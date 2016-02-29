@@ -2,6 +2,9 @@ require 'rails_helper'
 require 'nokogiri'
 
 feature 'Word Lookup', js: true, type: :feature do
+  fixtures :entries
+  fixtures :definitions
+
   let(:fail_text) { "No definition found" }
   let(:search_text) { "Doogle Search" }
   let(:word_input_id) { "entry_word" }
@@ -19,18 +22,31 @@ feature 'Word Lookup', js: true, type: :feature do
     </entry_list>"
   }
 
-  scenario 'should successfully search for word' do
-    word = 'test'
+  scenario 'should successfully search for word that is in the database' do
+    word = entries(:entry_one).word
 
+    # possible request if word is not in database
     stub_mock_request word, valid_response
     visit root_path
     fill_in word_input_id, with: word
     click_button search_text
 
-    #allow request to have time to be made
     sleep 1
 
-    assert_mock_requested word
+    expect(page).not_to have_selector(error_message_selector, text: fail_text)
+    expect(page).to have_selector("ul li")
+  end
+
+  scenario 'should successfully search for word that is not in the database' do
+    word = 'river'
+
+    # possible request if word is not in database
+    stub_mock_request word, valid_response
+    visit root_path
+    fill_in word_input_id, with: word
+    click_button search_text
+
+    sleep 1
 
     expect(page).not_to have_selector(error_message_selector, text: fail_text)
     expect(page).to have_selector("ul li")
@@ -44,8 +60,6 @@ feature 'Word Lookup', js: true, type: :feature do
 
     fill_in word_input_id, with: word
     click_button search_text
-
-    assert_mock_requested word
 
     expect(page).to have_selector(error_message_selector, text: fail_text)
     expect(page).not_to have_selector("ul li")
