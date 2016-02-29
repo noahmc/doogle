@@ -56,19 +56,3 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-def get_api_url(word)
-  url_part = URI.escape(word)
-  "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/#{url_part}?key=#{Rails.application.secrets.dictionary_api}" if word
-end
-
-def stub_mock_request(word, response)
-  stub_request(:get, get_api_url(word)).
-    with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-    to_return(status: 200, body: response, headers: {})
-end
-
-def assert_mock_requested(word, times = 1)
-  assert_requested :get, get_api_url(word),
-                   :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'},
-                   :times => times
-end
