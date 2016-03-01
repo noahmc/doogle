@@ -3,13 +3,16 @@
 <head>
   <title>Doogle</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <%= yield %>
-
+<br>
+  <div class="container">
+    <p class="text-info"><%= notice %></p>
+    <p class="text-danger"><%= alert %></p>
+    <%= yield %>
+  </div>
 </body>
 </html>
