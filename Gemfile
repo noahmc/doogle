@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'capybara'
 gem 'rails_admin'
 gem 'devise'
+gem 'faraday'
 
 gem 'heroku_san'
 gem 'nokogiri'
@@ -31,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :test do
   gem 'webmock'
-  gem "capybara-webkit"
+  gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
 end
@@ -41,7 +42,7 @@ group :development, :test do
   gem 'byebug',      '3.4.0'
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
-  gem "rspec-rails"
+  gem 'rspec-rails'
 end
 
 group :production do

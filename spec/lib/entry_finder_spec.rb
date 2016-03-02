@@ -4,9 +4,8 @@ RSpec.describe EntryFinder do
   describe '.locate' do
     context 'when passed a word' do
       let(:word) { 'cat' }
-      let(:def_1) { double('Definition', description: 'furry mammal') }
-      let(:def_2) { double('Definition', description: '66% of the internet') }
-      let(:definitions) { [ def_1, def_2 ] }
+      let(:description_1) { 'furry mammal' }
+      let(:description_2) { '66% of the internet' }
       let(:entry) { double('Entry', word: word) }
 
       context 'when the word is in our database' do
@@ -22,8 +21,8 @@ RSpec.describe EntryFinder do
 <entry_list>
   <entry>
     <def>
-      <dt>#{def_1.description}</dt>
-      <dt>#{def_2.description}</dt>
+      <dt>#{description_1}</dt>
+      <dt>#{description_2}</dt>
     </def>
   </entry>
 <entry_list>
@@ -39,17 +38,15 @@ XML
           new_entry = described_class.locate(word)
 
           expect(new_entry.word).to eq(word)
-          expect(new_entry.definitions.first.description).to eq('furry mammal')
-          expect(new_entry.definitions.second.description).to eq('66% of the internet')
+          expect(new_entry.definitions.first.description).to eq(description_1)
+          expect(new_entry.definitions.second.description).to eq(description_2)
         end
       end
     end
 
     context 'when not passed a word' do
-      let(:word) { nil }
-
       it 'should return nil' do
-        expect(described_class.locate(word)).to be_nil
+        expect(described_class.locate(nil)).to be_nil
       end
     end
   end

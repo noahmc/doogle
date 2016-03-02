@@ -2,6 +2,7 @@ require 'webmock/rspec'
 require 'capybara'
 require 'capybara-webkit'
 require 'shoulda-matchers'
+require 'support/app_spec_helpers'
 
 #Capybara headless driver config
 Capybara.javascript_driver = :webkit
@@ -100,21 +101,4 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-end
-
-def get_api_url(word)
-  url_part = URI.escape(word) if word.present?
-  "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/#{url_part}?key=#{Rails.application.secrets.dictionary_api}"
-end
-
-def stub_dictionary_api_request(word, response)
-  stub_request(:get, get_api_url(word)).
-    with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' }).
-    to_return(status: 200, body: response, headers: {})
-end
-
-def expect_dictionary_api_requested(word, times = 1)
-  assert_requested :get, get_api_url(word),
-                   :headers => { 'Accept' => '*/*', 'User-Agent' => 'Ruby' },
-                   :times => times
 end

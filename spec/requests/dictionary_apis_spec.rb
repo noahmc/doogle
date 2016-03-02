@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Dictionary Apis" do
-  describe "GET word" do
+RSpec.describe 'Dictionary Apis' do
+  describe 'GET word' do
     subject(:dictionary_api_webservice) { DictionaryWebService.get_definitions_for(word) }
 
     before do

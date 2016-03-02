@@ -5,12 +5,7 @@ class DictionaryWebService
   def self.get_definitions_for(word)
     return nil unless word
 
-    url = URI.parse(api_url(word))
-    req = Net::HTTP::Get.new url.to_s
-
-    Net::HTTP.start(url.host, url.port) do |http|
-      http.request req
-    end
+    Faraday.get URI.parse(api_url(word))
   end
 
   private
