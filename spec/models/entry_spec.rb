@@ -4,17 +4,12 @@ RSpec.describe Entry, type: :model do
   fixtures :entries
   fixtures :definitions
 
-  it 'should require a word' do
-    entry = Entry.new(word: 'test')
-    expect(entry.valid?).to be true
-    entry.word = nil
-    expect(entry.valid?).to be false
-    entry.word = '   '
-    expect(entry.valid?).to be false
+  context 'validations' do
+    it { is_expected.to validate_presence_of(:word) }
+    it { is_expected.to validate_length_of(:word).is_at_most(50) }
   end
 
-  it 'should not allow a word over 50 characters long' do
-    entry = Entry.new(word: 'a' * 51)
-    expect(entry.valid?).to be false
+  context 'associations' do
+    it { is_expected.to have_many(:definitions) }
   end
 end

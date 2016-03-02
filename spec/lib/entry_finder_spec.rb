@@ -32,8 +32,7 @@ XML
         let(:dictionary_response) { double('DictionaryResponse', body: xml_response) }
 
         before do
-          allow(Entry).to receive(:find_by).with(word: word).and_return(nil)
-          allow(DictionaryWebService).to receive(:get_definitions_for).with(word).and_return(dictionary_response)
+          expect(DictionaryWebService).to receive(:get_definitions_for).with(word).and_return(dictionary_response)
         end
 
         it 'should return an entry' do

@@ -33,6 +33,7 @@ group :test do
   gem 'webmock'
   gem "capybara-webkit"
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development, :test do

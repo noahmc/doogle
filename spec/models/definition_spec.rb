@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Definition, type: :model do
-  it 'should require a description' do
-    definition = Definition.new(description: 'test')
-    expect(definition.valid?).to be true
-    definition.description = nil
-    expect(definition.valid?).to be false
-    definition.description = '  '
-    expect(definition.valid?).to be false
+  let(:definition) { Definition.new(description: 'test') }
+
+  context 'validations' do
+    it { is_expected.to validate_presence_of(:description) }
+  end
+
+  context 'associations' do
+    it { is_expected.to belong_to(:entry) }
   end
 end
