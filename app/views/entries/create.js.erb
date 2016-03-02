@@ -4,6 +4,10 @@ var content = $("#content");
 
 content.empty();
 
-<% @definitions.each do |definition| %>
-  content.append("<li class='list-group-item'><%= definition %></li>");
+<% if @entry %>
+  content.append("<li class='list-group-item'><h4><%= @entry.word %></h4></li>");
+<% end %>
+
+<% @entry.definitions.each do |definition| %>
+  content.append("<li class='list-group-item'><%= definition.description %></li>");
 <% end %>

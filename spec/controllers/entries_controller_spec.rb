@@ -3,65 +3,36 @@ require 'rails_helper'
 RSpec.describe EntriesController, type: :controller do
   fixtures :entries
 
-  let(:blank_response) { "<entry_list></entry_list>" }
-  let(:valid_response) {
-    "<entry_list>
-      <entry>
-        <ew>Word</ew>
-        <def>
-          <dt>Definition</dt>
-          <dt>Definition 2</dt>
-        </def>
-      </entry>
-    </entry_list>"
-  }
-
-  context 'create' do
-    it 'should retrieve an unknown word from the dictionary api and save it to the database' do
-      word = "no test"
-
-      expect(look_up word).to be_falsy
-      stub_mock_request(word, valid_response)
-
-      expect {
-        post :create, entry: {word: word}
-      }.to change { Entry.count }.by 1
-
-      assert_mock_requested word
-
-      expect(look_up word).to be_truthy
+  describe 'POST create' do
+    def make_request
+      post :create, { entry: { word: word } }
     end
 
-    it 'should retrieve a known word from the database and not increase database entries count' do
-      word = "test"
+    context 'when word is nil in the request' do
+      let(:word) { nil }
 
-      expect(look_up word).to be_truthy
-      stub_mock_request(word, valid_response)
+      before do
+        allow(EntryFinder).to receive(:locate).and_return(nil)
+      end
 
-      expect {
-        post :create, entry: {word: word}
-      }.not_to change {Entry.count} and not_to change {Definition.count}
+      it 'returns the error message' do
+        make_request
 
-      assert_mock_requested word, 0
-
-      expect(look_up word).to be_truthy
+        expect(assigns(:error_message)).to eq("No definition found.")
+      end
     end
 
-    it 'should not save an invalid word' do
-      word = "asdf"
+    context 'when a word is present in the request' do
+      let(:word) { 'cat' }
+      let(:entry) { Entry.new(word: word) }
 
-      stub_mock_request(word, blank_response)
-      expect {
-        post :create, entry: {word: word}
-      }.not_to change {Entry.count}
+      it 'assigns entry' do
+        expect(EntryFinder).to receive(:locate).with(word).and_return(entry)
 
-      assert_mock_requested word
+        make_request
 
-      expect(look_up word).to be_falsy
+        expect(assigns(:entry)).to eq(entry)
+      end
     end
-  end
-
-  def look_up(word)
-    Entry.find_by(word: word)
   end
 end

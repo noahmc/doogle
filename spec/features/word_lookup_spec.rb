@@ -5,62 +5,32 @@ feature 'Word Lookup', js: true, type: :feature do
   fixtures :entries
   fixtures :definitions
 
-  let(:fail_text) { "No definition found" }
-  let(:search_text) { "Doogle Search" }
-  let(:word_input_id) { "entry_word" }
-  let(:error_message_selector) { "#error_message" }
-  let(:blank_response) { "<entry_list></entry_list>" }
+  let(:word) { "test case" }
   let(:valid_response) {
     "<entry_list>
       <entry>
-        <ew>Word</ew>
+        <ew>Test Case</ew>
         <def>
-          <dt>Definition</dt>
+          <dt>Definition 1</dt>
           <dt>Definition 2</dt>
         </def>
       </entry>
     </entry_list>"
   }
 
-  scenario 'should successfully search for word that is in the database' do
-    word = entries(:entry_one).word
-
-    stub_mock_request word, valid_response
-
-    fill_in_form_and_submit(word, :success)
-  end
-
-  scenario 'should successfully search for word that is not in the database' do
-    word = 'river'
-
-    stub_mock_request word, valid_response
-
-    fill_in_form_and_submit(word, :success)
-  end
-
-  scenario 'should fail to search for a non-sense word' do
-    word = 'asdf'
-
-    stub_mock_request word, blank_response
-
-    fill_in_form_and_submit(word, :fail)
-  end
-
-  def fill_in_form_and_submit(word, expected_result=:success)
+  scenario 'A user looks up a word' do
     visit root_path
 
-    fill_in word_input_id, with: word
-    click_button search_text
+    stub_dictionary_api_request word, valid_response
+
+    fill_in 'entry_word', with: word
+    click_button 'Doogle Search'
 
     sleep 1
 
-    if expected_result == :success
-      expect(page).not_to have_selector(error_message_selector, text: fail_text)
-      expect(page).to have_selector("ul li")
-    else
-      expect(page).to have_selector(error_message_selector, text: fail_text)
-      expect(page).not_to have_selector("ul li")
-    end
-
+    expect(page).not_to have_selector('#error_message', text: 'No definition found')
+    expect(page).to have_selector('ul li h4', text: word)
+    expect(page).to have_selector('ul li', text: 'Definition 1')
+    expect(page).to have_selector('ul li', text: 'Definition 2')
   end
 end

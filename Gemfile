@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :test do
   gem 'webmock'
+  gem "capybara-webkit"
   gem 'selenium-webdriver'
 end
 
